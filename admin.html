@@ -573,7 +573,7 @@
     <div id="toast"></div>
 
     <script>
-        // ===== Check Admin Access =====
+        // ===== Check Admin Access with 12-hour timeout =====
         document.addEventListener('DOMContentLoaded', function () {
             const user = localStorage.getItem('currentUser');
             if (!user) {
@@ -583,6 +583,19 @@
             }
 
             const userData = JSON.parse(user);
+
+            // Check 12-hour session timeout
+            const SESSION_TIMEOUT = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
+            const loginTime = userData.loginTime ? new Date(userData.loginTime).getTime() : Date.now();
+            const currentTime = Date.now();
+
+            if (currentTime - loginTime > SESSION_TIMEOUT) {
+                alert('⏰ หมดเวลาเข้าใช้งาน (12 ชั่วโมง) กรุณาเข้าสู่ระบบใหม่');
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+                return;
+            }
+
             if (!userData.isAdmin) {
                 alert('เฉพาะผู้ดูแลระบบเท่านั้น');
                 window.location.href = 'index.html';
@@ -590,6 +603,9 @@
             }
 
             loadAllData();
+
+            // Show registered members list
+            showMemberNames();
         });
 
         // ===== Show Toast =====
@@ -598,6 +614,20 @@
             toast.textContent = message;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ===== Show Member Names on Page Load =====
+        function showMemberNames() {
+            const members = JSON.parse(localStorage.getItem('members') || '[]');
+            if (members.length > 0) {
+                const names = members.map(m => m.name).join(', ');
+                const freeCount = members.filter(m => m.tier === 'free').length;
+                const premiumCount = members.filter(m => m.tier === 'premium').length;
+
+                setTimeout(() => {
+                    showToast(`📋 สมาชิกทั้งหมด ${members.length} คน (Premium: ${premiumCount}, Free: ${freeCount})`);
+                }, 500);
+            }
         }
 
         // ===== Format Helpers =====
