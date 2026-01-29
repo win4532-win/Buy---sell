@@ -5,152 +5,311 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เข้าสู่ระบบผู้ดูแล - ShopZone</title>
-    <meta name="description" content="เข้าสู่ระบบสำหรับผู้ดูแลระบบ ShopZone">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .lock-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hint-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #92400e;
+            text-align: left;
+        }
+
+        .hint-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #dc2626;
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            text-align: left;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 16px 30px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        #toast.success {
+            background: #10b981;
+        }
+
+        #toast.error {
+            background: #ef4444;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="login-page">
-        <div class="login-container animate-fade">
-            <!-- Left - Graphic -->
-            <div class="login-graphic">
-                <div>
-                    <div class="flex gap-2 mb-8">
-                        <span class="logo-icon" style="font-size:2rem;width:50px;height:50px">S</span>
-                        <span style="font-size:1.5rem;font-weight:700">ShopZone</span>
-                    </div>
-                    <h2>🔐 ระบบผู้ดูแล</h2>
-                    <p>เข้าสู่ระบบเพื่อจัดการร้านค้า ดูข้อมูลลูกค้า และตรวจสอบยอดขาย</p>
-                    <div class="mt-8">
-                        <div class="flex gap-4 mb-4" style="opacity:0.9">
-                            <span>📊</span>
-                            <span>ดูสถิติยอดขาย</span>
-                        </div>
-                        <div class="flex gap-4 mb-4" style="opacity:0.9">
-                            <span>👥</span>
-                            <span>จัดการข้อมูลลูกค้า</span>
-                        </div>
-                        <div class="flex gap-4" style="opacity:0.9">
-                            <span>📦</span>
-                            <span>ติดตามคำสั่งซื้อ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right - Form -->
-            <div class="login-form-container">
-                <div id="login-section">
-                    <h1>เข้าสู่ระบบผู้ดูแล</h1>
-                    <p class="subtitle">กรอกข้อมูลเพื่อเข้าสู่ระบบจัดการร้านค้า</p>
-
-                    <form id="login-form" onsubmit="handleAdminLogin(event)">
-                        <div class="form-group">
-                            <label class="form-label" for="username">ชื่อผู้ใช้</label>
-                            <input type="text" id="username" class="form-input" placeholder="ชื่อผู้ใช้ Admin" required>
-                            <span class="form-error" id="username-error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="password">รหัสผ่าน</label>
-                            <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-                            <span class="form-error" id="password-error"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">
-                            <span id="login-btn-text">🔓 เข้าสู่ระบบ</span>
-                            <span id="login-btn-loading" style="display:none">
-                                <span class="spinner-small"></span> กำลังตรวจสอบ...
-                            </span>
-                        </button>
-                    </form>
-
-                    <!-- Admin Credentials Info -->
-                    <div class="admin-hint mt-6 p-4 bg-gray rounded-md">
-                        <p class="text-sm text-muted text-center">
-                            ⚠️ <strong>หน้านี้สำหรับผู้ดูแลระบบเท่านั้น</strong><br>
-                            หากไม่มีสิทธิ์เข้าถึง กรุณากลับไปหน้าหลัก
-                        </p>
-                    </div>
-
-                    <!-- Back to home -->
-                    <p class="text-center mt-6">
-                        <a href="index.html" class="btn btn-ghost">← กลับหน้าหลัก</a>
-                    </p>
-                </div>
-            </div>
+    <div class="login-box">
+        <div class="logo">
+            <span class="logo-icon">S</span>
+            <span class="logo-text">ShopZone</span>
         </div>
+
+        <div class="lock-icon">🔐</div>
+        <h1>เข้าสู่ระบบผู้ดูแล</h1>
+        <p class="subtitle">สำหรับผู้ดูแลระบบเท่านั้น</p>
+
+        <form id="login-form" onsubmit="handleAdminLogin(event)">
+            <div class="form-group">
+                <label class="form-label">ชื่อผู้ใช้</label>
+                <input type="text" id="username" class="form-input" placeholder="ชื่อผู้ใช้ Admin" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">รหัสผ่าน</label>
+                <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+            </div>
+
+            <p class="error-msg" id="error-msg" style="display:none"></p>
+
+            <button type="submit" class="btn" id="login-btn">
+                🔓 เข้าสู่ระบบ
+            </button>
+        </form>
+
+        <div class="hint-box">
+            <strong>⚠️ ข้อมูลเข้าสู่ระบบ:</strong>
+            ชื่อผู้ใช้: <code>admin4532</code><br>
+            รหัสผ่าน: <code>4532</code>
+        </div>
+
+        <a href="index.html" class="back-link">← กลับหน้าหลัก</a>
     </div>
 
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
+    <div id="toast"></div>
 
-    <!-- JavaScript -->
-    <script src="js/config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/main.js"></script>
     <script>
-        // Handle Admin Login
-        async function handleAdminLogin(event) {
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'show ' + type;
+            setTimeout(() => toast.className = '', 3000);
+        }
+
+        function handleAdminLogin(event) {
             event.preventDefault();
 
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+            const errorMsg = document.getElementById('error-msg');
 
-            // Clear previous errors
-            document.getElementById('username-error').textContent = '';
-            document.getElementById('password-error').textContent = '';
+            errorMsg.style.display = 'none';
 
-            // Validate
-            if (!username) {
-                document.getElementById('username-error').textContent = 'กรุณากรอกชื่อผู้ใช้';
-                return;
-            }
-            if (!password) {
-                document.getElementById('password-error').textContent = 'กรุณากรอกรหัสผ่าน';
+            if (!username || !password) {
+                errorMsg.textContent = 'กรุณากรอกข้อมูลให้ครบ';
+                errorMsg.style.display = 'block';
                 return;
             }
 
-            // Show loading
-            document.getElementById('login-btn-text').style.display = 'none';
-            document.getElementById('login-btn-loading').style.display = 'inline';
-            document.getElementById('login-btn').disabled = true;
+            btn.disabled = true;
+            btn.textContent = 'กำลังตรวจสอบ...';
 
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 800));
-
-            // Check admin credentials
-            const result = loginAsAdmin(username, password);
-
-            if (result.success) {
-                showToast('เข้าสู่ระบบสำเร็จ! กำลังเปิดหน้าจัดการ...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'admin.html';
-                }, 1000);
-            } else {
-                showToast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'error');
-                document.getElementById('login-btn-text').style.display = 'inline';
-                document.getElementById('login-btn-loading').style.display = 'none';
-                document.getElementById('login-btn').disabled = false;
-            }
+            setTimeout(() => {
+                // Only admin4532 can login
+                if (username === 'admin4532' && password === '4532') {
+                    const adminUser = {
+                        id: 'admin',
+                        name: 'ผู้ดูแลระบบ',
+                        email: 'admin@shopzone.com',
+                        isAdmin: true,
+                        loginTime: new Date().toISOString()
+                    };
+                    localStorage.setItem('currentUser', JSON.stringify(adminUser));
+                    showToast('เข้าสู่ระบบสำเร็จ!', 'success');
+                    setTimeout(() => window.location.href = 'admin.html', 1000);
+                } else {
+                    showToast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'error');
+                    btn.disabled = false;
+                    btn.textContent = '🔓 เข้าสู่ระบบ';
+                }
+            }, 800);
         }
 
-        // Check if already logged in as admin
+        // Check if already logged in
         document.addEventListener('DOMContentLoaded', () => {
-            if (isAdmin()) {
-                window.location.href = 'admin.html';
+            const user = localStorage.getItem('currentUser');
+            if (user) {
+                const userData = JSON.parse(user);
+                if (userData.isAdmin) {
+                    window.location.href = 'admin.html';
+                }
             }
         });
     </script>
