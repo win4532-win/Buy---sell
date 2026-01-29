@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมัครสมาชิก - ShopZone</title>
+    <meta name="description" content="สมัครสมาชิก ShopZone รับสิทธิพิเศษมากมาย">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+
+    <style>
+        .register-page {
+            min-height: 100vh;
+            padding: 100px 20px 60px;
+            background: linear-gradient(135deg, #fef2f2 0%, #fff 50%, #fef2f2 100%);
+        }
+
+        .register-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .register-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .register-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        /* Tier Cards */
+        .tier-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .tier-card.selected {
+            border-color: #dc2626;
+        }
+
+        .tier-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: #dc2626;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .tier-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1f2937;
+        }
+
+        .tier-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 20px;
+        }
+
+        .tier-price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #6b7280;
+        }
+
+        .tier-features {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tier-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
+
+        .tier-features li:last-child {
+            border-bottom: none;
+        }
+
+        .tier-features li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .tier-features li.disabled {
+            color: #9ca3af;
+        }
+
+        .tier-features li.disabled::before {
+            content: '✗';
+            color: #9ca3af;
+        }
+
+        .tier-card.premium {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+        }
+
+        .tier-card.premium .tier-name,
+        .tier-card.premium .tier-price,
+        .tier-card.premium .tier-features li {
+            color: white;
+        }
+
+        .tier-card.premium .tier-features li.disabled {
+            color: #9ca3af;
+        }
+
+        .tier-card.premium .tier-features li {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 0 0 15px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Registration Form */
+        .register-form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #1f2937;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: #f9fafb;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #dc2626;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+        }
+
+        .form-error {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #6b7280;
+        }
+
+        .login-link a {
+            color: #dc2626;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .tier-options {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .register-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="register-page">
+        <div class="register-container">
+            <!-- Header -->
+            <div class="register-header">
+                <h1>🎉 สมัครสมาชิก ShopZone</h1>
+                <p>เลือกแพ็คเกจที่เหมาะกับคุณ รับสิทธิพิเศษมากมาย</p>
+            </div>
+
+            <!-- Tier Options -->
+            <div class="tier-options">
+                <!-- Free Tier -->
+                <div class="tier-card selected" data-tier="free" onclick="selectTier('free')">
+                    <div class="tier-icon">🆓</div>
+                    <div class="tier-name">สมาชิกฟรี</div>
+                    <div class="tier-price">ฟรี <small>ไม่มีค่าใช้จ่าย</small></div>
+                    <ul class="tier-features">
+                        <li>รับข่าวสารโปรโมชั่น</li>
+                        <li>ติดตามสถานะคำสั่งซื้อ</li>
+                        <li>บันทึกที่อยู่จัดส่ง</li>
+                        <li class="disabled">สะสมคะแนน</li>
+                        <li class="disabled">แลกส่วนลดพิเศษ</li>
+                    </ul>
+                </div>
+
+                <!-- Premium Tier -->
+                <div class="tier-card premium" data-tier="premium" onclick="selectTier('premium')">
+                    <div class="tier-badge">🔥 แนะนำ</div>
+                    <div class="tier-icon">💎</div>
+                    <div class="tier-name">สมาชิก Premium</div>
+                    <div class="tier-price">฿299 <small>/ปี</small></div>
+                    <ul class="tier-features">
+                        <li>รับข่าวสารโปรโมชั่น</li>
+                        <li>ติดตามสถานะคำสั่งซื้อ</li>
+                        <li>บันทึกที่อยู่จัดส่ง</li>
+                        <li>สะสมคะแนน (1 คะแนน / ฿100)</li>
+                        <li>แลกส่วนลด (100 คะแนน = ฿50)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="register-form-container" id="register-form-container">
+                <h2 class="form-title">📝 กรอกข้อมูลสมัครสมาชิก</h2>
+                <form id="member-register-form" onsubmit="handleMemberRegister(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">ชื่อ-นามสกุล *</label>
+                            <input type="text" id="member-name" class="form-input" placeholder="กรอกชื่อ-นามสกุล"
+                                required>
+                            <div class="form-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">เบอร์โทรศัพท์ *</label>
+                            <input type="tel" id="member-phone" class="form-input" placeholder="08x-xxx-xxxx" required>
+                            <div class="form-error"></div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">อีเมล *</label>
+                            <input type="email" id="member-email" class="form-input" placeholder="email@example.com"
+                                required>
+                            <div class="form-error"></div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="selected-tier" value="free">
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        สมัครสมาชิกฟรี
+                    </button>
+
+                    <p class="login-link">
+                        มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบ</a>
+                    </p>
+                </form>
+
+                <!-- Success Message -->
+                <div class="success-message" id="success-message">
+                    <div class="success-icon">🎊</div>
+                    <h2 class="success-title">สมัครสมาชิกสำเร็จ!</h2>
+                    <p class="success-text">ยินดีต้อนรับสู่ ShopZone<br>คุณสามารถเริ่มช้อปปิ้งและรับสิทธิพิเศษได้เลย</p>
+                    <a href="index.html" class="submit-btn" style="display:inline-block;text-decoration:none">
+                        🛒 เริ่มช้อปปิ้ง
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        let selectedTier = 'free';
+
+        function selectTier(tier) {
+            selectedTier = tier;
+            document.getElementById('selected-tier').value = tier;
+
+            // Update UI
+            document.querySelectorAll('.tier-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
+
+            // Update button text
+            const btn = document.getElementById('submit-btn');
+            if (tier === 'premium') {
+                btn.textContent = 'สมัครสมาชิก Premium (฿299/ปี)';
+            } else {
+                btn.textContent = 'สมัครสมาชิกฟรี';
+            }
+        }
+
+        function handleMemberRegister(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('member-name').value.trim();
+            const phone = document.getElementById('member-phone').value.trim();
+            const email = document.getElementById('member-email').value.trim();
+            const tier = selectedTier;
+
+            // Validate
+            let isValid = true;
+            if (!name) {
+                showFieldError('member-name', 'กรุณากรอกชื่อ-นามสกุล');
+                isValid = false;
+            }
+            if (!phone || phone.replace(/[-\s]/g, '').length < 9) {
+                showFieldError('member-phone', 'กรุณากรอกเบอร์โทรที่ถูกต้อง');
+                isValid = false;
+            }
+            if (!email || !validateEmail(email)) {
+                showFieldError('member-email', 'กรุณากรอกอีเมลที่ถูกต้อง');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Check if email already exists
+            const members = JSON.parse(localStorage.getItem('members') || '[]');
+            if (members.some(m => m.email === email)) {
+                showFieldError('member-email', 'อีเมลนี้ถูกใช้งานแล้ว');
+                return;
+            }
+
+            // Create member object
+            const member = {
+                id: 'm_' + Date.now(),
+                name: name,
+                phone: phone,
+                email: email,
+                tier: tier,
+                points: 0,
+                createdAt: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            members.push(member);
+            localStorage.setItem('members', JSON.stringify(members));
+
+            // Show success
+            document.getElementById('member-register-form').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+
+            // Show toast
+            showToast('🎉 สมัครสมาชิกสำเร็จ!', 'success');
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const error = field.parentElement.querySelector('.form-error');
+            field.style.borderColor = '#dc2626';
+            if (error) error.textContent = message;
+        }
+
+        // Clear errors on input
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function () {
+                this.style.borderColor = '#dc2626';
+                const error = this.parentElement.querySelector('.form-error');
+                if (error) error.textContent = '';
+            });
+        });
+    </script>
+</body>
+
+</html>
