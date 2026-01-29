@@ -62,7 +62,7 @@ function logout() {
     if (typeof showToast === 'function') {
         showToast('ออกจากระบบแล้ว', 'info');
     }
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 // ==================== Customer Order Data Storage ====================

@@ -198,7 +198,7 @@ function handleRegister(event) {
 function logout() {
     localStorage.removeItem('user');
     showToast('ออกจากระบบแล้ว', 'info');
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 // ==================== Payment ====================
