@@ -953,8 +953,11 @@
 
         // ===== Logout =====
         function logout() {
-            localStorage.removeItem('currentUser');
-            window.location.href = 'index.html';
+            if (confirm('คุณต้องการออกจากระบบหรือไม่?')) {
+                localStorage.removeItem('currentUser');
+                alert('✅ ออกจากระบบสำเร็จ');
+                window.location.href = 'login.html';
+            }
         }
     </script>
 </body>
