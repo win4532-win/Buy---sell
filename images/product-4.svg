@@ -1,0 +1,32 @@
+<svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7f1d1d" stop-opacity="0.8"/>
+      <stop offset="100%" style="stop-color:#991b1b" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="240" fill="#f9fafb"/>
+  
+  <!-- Left Lens -->
+  <ellipse cx="100" cy="120" rx="55" ry="45" fill="url(#lensGrad)"/>
+  <ellipse cx="100" cy="120" rx="50" ry="40" fill="none" stroke="#1f2937" stroke-width="5"/>
+  
+  <!-- Right Lens -->
+  <ellipse cx="200" cy="120" rx="55" ry="45" fill="url(#lensGrad)"/>
+  <ellipse cx="200" cy="120" rx="50" ry="40" fill="none" stroke="#1f2937" stroke-width="5"/>
+  
+  <!-- Bridge -->
+  <path d="M145 120 Q150 110 155 120" fill="none" stroke="#1f2937" stroke-width="5"/>
+  
+  <!-- Left Temple -->
+  <path d="M50 110 L20 90" fill="none" stroke="#1f2937" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Right Temple -->
+  <path d="M250 110 L280 90" fill="none" stroke="#1f2937" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Lens Shine -->
+  <ellipse cx="85" cy="105" rx="15" ry="10" fill="white" opacity="0.3"/>
+  <ellipse cx="185" cy="105" rx="15" ry="10" fill="white" opacity="0.3"/>
+</svg>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชำระเงิน - ShopZone</title>
+    <meta name="description" content="เลือกวิธีชำระเงินและยืนยันคำสั่งซื้อ">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="payment-page">
+        <div class="container">
+            <h1 class="text-3xl font-bold mb-2">ชำระเงิน</h1>
+            <p class="text-muted mb-8">กรอกข้อมูลการจัดส่งและเลือกวิธีชำระเงิน</p>
+
+            <form onsubmit="processPayment(event)">
+                <div class="payment-container">
+                    <!-- Payment Form -->
+                    <div>
+                        <!-- Shipping Info -->
+                        <div class="payment-methods mb-6">
+                            <h3 class="text-lg font-bold mb-4">📍 ที่อยู่จัดส่ง</h3>
+
+                            <div class="grid grid-2 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">ชื่อ</label>
+                                    <input type="text" class="form-input" placeholder="ชื่อ" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">นามสกุล</label>
+                                    <input type="text" class="form-input" placeholder="นามสกุล" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">เบอร์โทรศัพท์</label>
+                                <input type="tel" class="form-input" placeholder="080-123-4567" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">ที่อยู่</label>
+                                <textarea class="form-input" rows="3" placeholder="บ้านเลขที่, ซอย, ถนน"
+                                    required></textarea>
+                            </div>
+
+                            <div class="grid grid-2 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">จังหวัด</label>
+                                    <select class="form-input" required>
+                                        <option value="">เลือกจังหวัด</option>
+                                        <option>กรุงเทพมหานคร</option>
+                                        <option>เชียงใหม่</option>
+                                        <option>นนทบุรี</option>
+                                        <option>ปทุมธานี</option>
+                                        <option>สมุทรปราการ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">รหัสไปรษณีย์</label>
+                                    <input type="text" class="form-input" placeholder="10XXX" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Methods -->
+                        <div class="payment-methods">
+                            <h3 class="text-lg font-bold mb-4">💳 วิธีการชำระเงิน</h3>
+
+                            <label class="payment-option active">
+                                <input type="radio" name="payment" value="card" checked>
+                                <div>
+                                    <p class="font-medium">บัตรเครดิต/เดบิต</p>
+                                    <p class="text-sm text-muted">Visa, Mastercard, JCB</p>
+                                </div>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="promptpay">
+                                <div>
+                                    <p class="font-medium">พร้อมเพย์ / QR Code</p>
+                                    <p class="text-sm text-muted">สแกนจ่ายผ่านแอปธนาคาร</p>
+                                </div>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="bank">
+                                <div>
+                                    <p class="font-medium">โอนผ่านธนาคาร</p>
+                                    <p class="text-sm text-muted">กสิกร, กรุงเทพ, ไทยพาณิชย์</p>
+                                </div>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="cod">
+                                <div>
+                                    <p class="font-medium">เก็บเงินปลายทาง</p>
+                                    <p class="text-sm text-muted">ค่าบริการเพิ่ม ฿30</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card Details (shown for card payment) -->
+                        <div class="payment-methods mt-6" id="card-details">
+                            <h3 class="text-lg font-bold mb-4">ข้อมูลบัตร</h3>
+
+                            <div class="form-group">
+                                <label class="form-label">หมายเลขบัตร</label>
+                                <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+                            </div>
+
+                            <div class="grid grid-2 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">วันหมดอายุ</label>
+                                    <input type="text" class="form-input" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-input" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h3 class="text-xl font-bold mb-6">สรุปคำสั่งซื้อ</h3>
+
+                        <div id="payment-items">
+                            <!-- Items will be rendered by JS -->
+                        </div>
+
+                        <div class="summary-row">
+                            <span class="text-muted">ยอดรวมสินค้า</span>
+                            <span id="subtotal">฿0</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span class="text-muted">ค่าจัดส่ง</span>
+                            <span id="shipping">ฟรี</span>
+                        </div>
+
+                        <div class="summary-row total">
+                            <span>ยอดชำระทั้งหมด</span>
+                            <span class="text-primary" id="total">฿0</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full btn-lg mt-6">
+                            ยืนยันการชำระเงิน
+                        </button>
+
+                        <p class="text-center text-sm text-muted mt-4">
+                            เมื่อกดยืนยัน แสดงว่าคุณยอมรับ
+                            <a href="#" class="text-primary">เงื่อนไขการใช้บริการ</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Back -->
+            <div class="mt-8">
+                <a href="order.html" class="btn btn-ghost">
+                    ← กลับไปยังตะกร้าสินค้า
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Toggle payment option active state
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+
+                // Show/hide card details
+                const cardDetails = document.getElementById('card-details');
+                const selectedPayment = option.querySelector('input').value;
+                cardDetails.style.display = selectedPayment === 'card' ? 'block' : 'none';
+            });
+        });
+
+        // Render payment items
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('payment-items');
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center py-4">ไม่มีสินค้าในตะกร้า</p>';
+            } else {
+                container.innerHTML = cart.map(item => `
+          <div class="flex gap-3 py-3" style="border-bottom:1px solid var(--color-gray-100)">
+            <div style="width:50px;height:50px;background:var(--color-gray-100);border-radius:var(--radius-md)"></div>
+            <div class="flex-1">
+              <p class="text-sm font-medium">${item.name}</p>
+              <p class="text-sm text-muted">x${item.quantity}</p>
+            </div>
+            <span class="font-medium">${formatPrice(item.price * item.quantity)}</span>
+          </div>
+        `).join('');
+            }
+            updateOrderSummary();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopZone - ช้อปปิ้งออนไลน์</title>
+    <meta name="description" content="ShopZone ร้านค้าออนไลน์ สินค้าคุณภาพ ราคาดี จัดส่งรวดเร็ว">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate-fade">
+                <span class="hero-tag">🔥 ลดสูงสุด 50%</span>
+                <h1 class="hero-title">
+                    ช้อปสินค้า<br><span>คุณภาพดี</span><br>ราคาโดน
+                </h1>
+                <p class="hero-text">
+                    ค้นพบสินค้าหลากหลายหมวดหมู่ จากแบรนด์ชั้นนำ พร้อมโปรโมชั่นและส่วนลดพิเศษ จัดส่งฟรีทั่วประเทศ
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary btn-lg">เลือกซื้อเลย</a>
+                    <a href="#categories" class="btn btn-secondary btn-lg">ดูหมวดหมู่</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="images/hero-banner.svg" alt="Shopping">
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="section bg-gray">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h2 class="section-title">หมวดหมู่สินค้า</h2>
+                <p class="section-subtitle">เลือกซื้อตามหมวดหมู่ที่คุณสนใจ</p>
+            </div>
+            <div class="grid grid-4 gap-6">
+                <div class="card hover-lift text-center p-6">
+                    <div class="text-4xl mb-4">👜</div>
+                    <h3 class="font-semibold">กระเป๋า</h3>
+                    <p class="text-sm text-muted">120+ สินค้า</p>
+                </div>
+                <div class="card hover-lift text-center p-6">
+                    <div class="text-4xl mb-4">👟</div>
+                    <h3 class="font-semibold">รองเท้า</h3>
+                    <p class="text-sm text-muted">85+ สินค้า</p>
+                </div>
+                <div class="card hover-lift text-center p-6">
+                    <div class="text-4xl mb-4">⌚</div>
+                    <h3 class="font-semibold">นาฬิกา</h3>
+                    <p class="text-sm text-muted">60+ สินค้า</p>
+                </div>
+                <div class="card hover-lift text-center p-6">
+                    <div class="text-4xl mb-4">🕶️</div>
+                    <h3 class="font-semibold">แว่นตา</h3>
+                    <p class="text-sm text-muted">45+ สินค้า</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="section">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h2 class="section-title">สินค้ายอดนิยม</h2>
+                <p class="section-subtitle">สินค้าขายดี คุณภาพเยี่ยม ราคาคุ้มค่า</p>
+            </div>
+            <div class="grid grid-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <span class="badge badge-primary">ใหม่</span>
+                    <button class="wishlist-btn">♡</button>
+                    <div class="product-img-wrapper">
+                        <img src="images/product-1.svg" alt="Red Handbag" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">กระเป๋า</p>
+                        <h3 class="product-title">กระเป๋าสะพายหนังแท้ สีแดง</h3>
+                        <div class="product-price">
+                            <span class="price-current">฿2,490</span>
+                            <span class="price-original">฿3,990</span>
+                        </div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(128)</span>
+                        </div>
+                        <button class="btn btn-primary btn-full mt-4"
+                            onclick="addToCart({id:1, name:'กระเป๋าสะพายหนังแท้', price:2490, image:'images/product-1.svg'})">
+                            เพิ่มลงตะกร้า
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <span class="badge badge-warning">ขายดี</span>
+                    <button class="wishlist-btn">♡</button>
+                    <div class="product-img-wrapper">
+                        <img src="images/product-2.svg" alt="Sneakers" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">รองเท้า</p>
+                        <h3 class="product-title">รองเท้าผ้าใบ สไตล์สปอร์ต</h3>
+                        <div class="product-price">
+                            <span class="price-current">฿1,890</span>
+                            <span class="price-original">฿2,590</span>
+                        </div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span>(89)</span>
+                        </div>
+                        <button class="btn btn-primary btn-full mt-4"
+                            onclick="addToCart({id:2, name:'รองเท้าผ้าใบ สไตล์สปอร์ต', price:1890, image:'images/product-2.svg'})">
+                            เพิ่มลงตะกร้า
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <button class="wishlist-btn">♡</button>
+                    <div class="product-img-wrapper">
+                        <img src="images/product-3.svg" alt="Smartwatch" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">นาฬิกา</p>
+                        <h3 class="product-title">สมาร์ทวอทช์ รุ่นล่าสุด</h3>
+                        <div class="product-price">
+                            <span class="price-current">฿4,990</span>
+                            <span class="price-original">฿6,990</span>
+                        </div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(256)</span>
+                        </div>
+                        <button class="btn btn-primary btn-full mt-4"
+                            onclick="addToCart({id:3, name:'สมาร์ทวอทช์ รุ่นล่าสุด', price:4990, image:'images/product-3.svg'})">
+                            เพิ่มลงตะกร้า
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <span class="badge badge-success">ลด 40%</span>
+                    <button class="wishlist-btn">♡</button>
+                    <div class="product-img-wrapper">
+                        <img src="images/product-4.svg" alt="Sunglasses" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">แว่นตา</p>
+                        <h3 class="product-title">แว่นกันแดด ดีไซน์เรียบหรู</h3>
+                        <div class="product-price">
+                            <span class="price-current">฿990</span>
+                            <span class="price-original">฿1,690</span>
+                        </div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span>(67)</span>
+                        </div>
+                        <button class="btn btn-primary btn-full mt-4"
+                            onclick="addToCart({id:4, name:'แว่นกันแดด ดีไซน์เรียบหรู', price:990, image:'images/product-4.svg'})">
+                            เพิ่มลงตะกร้า
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section id="promo" class="section bg-gradient text-white text-center">
+        <div class="container py-16">
+            <h2 class="text-4xl font-bold mb-4" style="color:white">🎉 โปรโมชั่นพิเศษ!</h2>
+            <p class="text-xl mb-8" style="opacity:0.9">สั่งซื้อครบ ฿1,000 ขึ้นไป จัดส่งฟรีทั่วประเทศ</p>
+            <a href="#products" class="btn btn-lg" style="background:white;color:var(--color-primary)">ช้อปเลย</a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-4 gap-6 text-center">
+                <div class="p-6">
+                    <div class="text-4xl mb-4">🚚</div>
+                    <h3 class="font-semibold mb-2">จัดส่งฟรี</h3>
+                    <p class="text-sm text-muted">เมื่อสั่งซื้อ ฿1,000+</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl mb-4">🔄</div>
+                    <h3 class="font-semibold mb-2">คืนสินค้าได้</h3>
+                    <p class="text-sm text-muted">ภายใน 30 วัน</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl mb-4">🔒</div>
+                    <h3 class="font-semibold mb-2">ชำระเงินปลอดภัย</h3>
+                    <p class="text-sm text-muted">ระบบ SSL Secure</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl mb-4">📞</div>
+                    <h3 class="font-semibold mb-2">บริการ 24/7</h3>
+                    <p class="text-sm text-muted">พร้อมช่วยเหลือเสมอ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

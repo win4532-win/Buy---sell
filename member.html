@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บัญชีของฉัน - ShopZone</title>
+    <meta name="description" content="จัดการบัญชี ดูประวัติคำสั่งซื้อ และสิทธิพิเศษสมาชิก">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="member-page">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header animate-fade">
+                <div class="flex-between flex-wrap gap-6">
+                    <div class="profile-info">
+                        <div class="avatar"
+                            style="background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark));display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;font-weight:700">
+                            ผ
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold">ผู้ใช้งาน</h1>
+                            <p class="text-muted">user@example.com</p>
+                            <p class="text-sm mt-2">
+                                <span class="badge badge-primary">สมาชิก Premium</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">คำสั่งซื้อ</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1,250</div>
+                            <div class="stat-label">แต้มสะสม</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">฿15,890</div>
+                            <div class="stat-label">ยอดสั่งซื้อ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-4 gap-4 mb-8">
+                <a href="order.html" class="card p-6 text-center hover-lift">
+                    <div class="text-3xl mb-3">🛒</div>
+                    <span class="font-medium">ตะกร้าสินค้า</span>
+                </a>
+                <a href="#orders" class="card p-6 text-center hover-lift">
+                    <div class="text-3xl mb-3">📦</div>
+                    <span class="font-medium">ประวัติคำสั่งซื้อ</span>
+                </a>
+                <a href="#wishlist" class="card p-6 text-center hover-lift">
+                    <div class="text-3xl mb-3">❤️</div>
+                    <span class="font-medium">สินค้าที่ถูกใจ</span>
+                </a>
+                <a href="#settings" class="card p-6 text-center hover-lift">
+                    <div class="text-3xl mb-3">⚙️</div>
+                    <span class="font-medium">ตั้งค่าบัญชี</span>
+                </a>
+            </div>
+
+            <!-- Order History -->
+            <section id="orders" class="mb-8">
+                <h2 class="text-xl font-bold mb-4">ประวัติคำสั่งซื้อ</h2>
+                <div class="card">
+                    <!-- Order 1 -->
+                    <div class="p-6 flex-between flex-wrap gap-4" style="border-bottom:1px solid var(--color-gray-100)">
+                        <div class="flex gap-4">
+                            <div class="text-3xl">📦</div>
+                            <div>
+                                <p class="font-semibold">คำสั่งซื้อ #10042</p>
+                                <p class="text-sm text-muted">25 มกราคม 2569</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-primary">฿2,490</p>
+                            <span class="badge badge-success">จัดส่งแล้ว</span>
+                        </div>
+                    </div>
+
+                    <!-- Order 2 -->
+                    <div class="p-6 flex-between flex-wrap gap-4" style="border-bottom:1px solid var(--color-gray-100)">
+                        <div class="flex gap-4">
+                            <div class="text-3xl">📦</div>
+                            <div>
+                                <p class="font-semibold">คำสั่งซื้อ #10035</p>
+                                <p class="text-sm text-muted">18 มกราคม 2569</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-primary">฿5,880</p>
+                            <span class="badge badge-success">จัดส่งแล้ว</span>
+                        </div>
+                    </div>
+
+                    <!-- Order 3 -->
+                    <div class="p-6 flex-between flex-wrap gap-4">
+                        <div class="flex gap-4">
+                            <div class="text-3xl">📦</div>
+                            <div>
+                                <p class="font-semibold">คำสั่งซื้อ #10028</p>
+                                <p class="text-sm text-muted">10 มกราคม 2569</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-primary">฿1,890</p>
+                            <span class="badge badge-success">จัดส่งแล้ว</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Settings -->
+            <section id="settings" class="mb-8">
+                <h2 class="text-xl font-bold mb-4">ตั้งค่าบัญชี</h2>
+                <div class="card p-6">
+                    <form>
+                        <div class="grid grid-2 gap-6">
+                            <div class="form-group">
+                                <label class="form-label">ชื่อ-นามสกุล</label>
+                                <input type="text" class="form-input" value="ผู้ใช้งาน">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">อีเมล</label>
+                                <input type="email" class="form-input" value="user@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">เบอร์โทรศัพท์</label>
+                                <input type="tel" class="form-input" value="080-123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">วันเกิด</label>
+                                <input type="date" class="form-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ที่อยู่จัดส่ง</label>
+                            <textarea class="form-input" rows="3" placeholder="กรอกที่อยู่"></textarea>
+                        </div>
+                        <div class="flex gap-4">
+                            <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                            <button type="button" class="btn btn-ghost" onclick="logout()">ออกจากระบบ</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

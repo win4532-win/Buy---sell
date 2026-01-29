@@ -1,0 +1,24 @@
+<svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bagGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626"/>
+      <stop offset="100%" style="stop-color:#991B1B"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="240" fill="#f9fafb"/>
+  
+  <!-- Bag Body -->
+  <path d="M50 80 L250 80 L235 220 L65 220 Z" fill="url(#bagGrad1)" rx="10"/>
+  
+  <!-- Bag Handle -->
+  <path d="M100 80 C100 40 130 20 150 20 C170 20 200 40 200 80" fill="none" stroke="#7f1d1d" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- White accent -->
+  <rect x="90" y="110" width="120" height="3" fill="white" opacity="0.3" rx="2"/>
+  
+  <!-- Gold clasp -->
+  <ellipse cx="150" cy="90" rx="15" ry="10" fill="#fbbf24"/>
+  <circle cx="150" cy="90" r="5" fill="#f59e0b"/>
+</svg>

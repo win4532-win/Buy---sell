@@ -1,0 +1,38 @@
+<svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="watchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937"/>
+      <stop offset="100%" style="stop-color:#111827"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="240" fill="#f9fafb"/>
+  
+  <!-- Watch Band Top -->
+  <rect x="115" y="20" width="70" height="60" fill="#DC2626" rx="5"/>
+  <rect x="120" y="25" width="60" height="50" fill="#B91C1C" rx="3"/>
+  
+  <!-- Watch Band Bottom -->
+  <rect x="115" y="160" width="70" height="60" fill="#DC2626" rx="5"/>
+  <rect x="120" y="165" width="60" height="50" fill="#B91C1C" rx="3"/>
+  
+  <!-- Watch Face Outer -->
+  <circle cx="150" cy="120" r="60" fill="url(#watchGrad)"/>
+  
+  <!-- Watch Face Inner -->
+  <circle cx="150" cy="120" r="52" fill="#111827"/>
+  
+  <!-- Watch Screen -->
+  <circle cx="150" cy="120" r="45" fill="#1f2937"/>
+  
+  <!-- Time Display -->
+  <text x="150" y="115" text-anchor="middle" fill="white" font-family="Arial" font-size="24" font-weight="bold">10:30</text>
+  <text x="150" y="135" text-anchor="middle" fill="#9ca3af" font-family="Arial" font-size="10">MON 29</text>
+  
+  <!-- Watch Details -->
+  <circle cx="150" cy="155" r="4" fill="#DC2626"/>
+  
+  <!-- Crown -->
+  <rect x="205" y="110" width="12" height="20" fill="#374151" rx="3"/>
+</svg>

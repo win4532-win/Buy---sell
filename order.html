@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตะกร้าสินค้า - ShopZone</title>
+    <meta name="description" content="ตรวจสอบสินค้าในตะกร้าและดำเนินการสั่งซื้อ">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="order-page">
+        <div class="container">
+            <h1 class="text-3xl font-bold mb-2">ตะกร้าสินค้า</h1>
+            <p class="text-muted mb-8">ตรวจสอบสินค้าก่อนดำเนินการชำระเงิน</p>
+
+            <div class="cart-container">
+                <!-- Cart Items -->
+                <div class="cart-items" id="cart-items">
+                    <!-- Rendered by JavaScript -->
+                    <div class="text-center py-8">
+                        <div class="spinner m-auto mb-4"></div>
+                        <p class="text-muted">กำลังโหลด...</p>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3 class="text-xl font-bold mb-6">สรุปคำสั่งซื้อ</h3>
+
+                    <div class="summary-row">
+                        <span class="text-muted">ยอดรวมสินค้า</span>
+                        <span id="subtotal">฿0</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span class="text-muted">ค่าจัดส่ง</span>
+                        <span id="shipping">฿50</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>ยอดรวมทั้งหมด</span>
+                        <span class="text-primary" id="total">฿0</span>
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="form-group">
+                            <label class="form-label">โค้ดส่วนลด</label>
+                            <div class="flex gap-2">
+                                <input type="text" class="form-input" placeholder="กรอกโค้ด">
+                                <button class="btn btn-secondary">ใช้</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="payment.html" class="btn btn-primary btn-full btn-lg mt-4">
+                        ดำเนินการชำระเงิน
+                    </a>
+
+                    <p class="text-center text-sm text-muted mt-4">
+                        🔒 การชำระเงินปลอดภัยด้วย SSL
+                    </p>
+
+                    <div class="divider">
+                        <span>รับประกัน</span>
+                    </div>
+
+                    <div class="flex flex-col gap-3 text-sm">
+                        <div class="flex gap-3">
+                            <span>✓</span>
+                            <span>ส่งฟรีเมื่อซื้อครบ ฿1,000</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <span>✓</span>
+                            <span>คืนสินค้าได้ใน 30 วัน</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <span>✓</span>
+                            <span>รับประกันสินค้าแท้ 100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue Shopping -->
+            <div class="mt-8 text-center">
+                <a href="index.html" class="btn btn-ghost">
+                    ← เลือกซื้อสินค้าต่อ
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
