@@ -30,7 +30,7 @@
             <h1 class="text-3xl font-bold mb-2">ชำระเงิน</h1>
             <p class="text-muted mb-8">กรอกข้อมูลการจัดส่งและเลือกวิธีชำระเงิน</p>
 
-            <form onsubmit="processPayment(event)">
+            <form id="payment-form" onsubmit="processPayment(event)">
                 <div class="payment-container">
                     <!-- Payment Form -->
                     <div>
@@ -41,40 +41,48 @@
                             <div class="grid grid-2 gap-4">
                                 <div class="form-group">
                                     <label class="form-label">ชื่อ</label>
-                                    <input type="text" class="form-input" placeholder="ชื่อ" required>
+                                    <input type="text" id="ship-firstname" class="form-input" placeholder="ชื่อ"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">นามสกุล</label>
-                                    <input type="text" class="form-input" placeholder="นามสกุล" required>
+                                    <input type="text" id="ship-lastname" class="form-input" placeholder="นามสกุล"
+                                        required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">เบอร์โทรศัพท์</label>
-                                <input type="tel" class="form-input" placeholder="080-123-4567" required>
+                                <input type="tel" id="ship-phone" class="form-input" placeholder="080-123-4567"
+                                    required>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">ที่อยู่</label>
-                                <textarea class="form-input" rows="3" placeholder="บ้านเลขที่, ซอย, ถนน"
-                                    required></textarea>
+                                <textarea id="ship-address" class="form-input" rows="3"
+                                    placeholder="บ้านเลขที่, ซอย, ถนน" required></textarea>
                             </div>
 
                             <div class="grid grid-2 gap-4">
                                 <div class="form-group">
                                     <label class="form-label">จังหวัด</label>
-                                    <select class="form-input" required>
+                                    <select id="ship-province" class="form-input" required>
                                         <option value="">เลือกจังหวัด</option>
                                         <option>กรุงเทพมหานคร</option>
                                         <option>เชียงใหม่</option>
                                         <option>นนทบุรี</option>
                                         <option>ปทุมธานี</option>
                                         <option>สมุทรปราการ</option>
+                                        <option>ชลบุรี</option>
+                                        <option>นครราชสีมา</option>
+                                        <option>ขอนแก่น</option>
+                                        <option>ภูเก็ต</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">รหัสไปรษณีย์</label>
-                                    <input type="text" class="form-input" placeholder="10XXX" required>
+                                    <input type="text" id="ship-postcode" class="form-input" placeholder="10XXX"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -83,23 +91,23 @@
                         <div class="payment-methods">
                             <h3 class="text-lg font-bold mb-4">💳 วิธีการชำระเงิน</h3>
 
-                            <label class="payment-option active">
-                                <input type="radio" name="payment" value="card" checked>
-                                <div>
-                                    <p class="font-medium">บัตรเครดิต/เดบิต</p>
-                                    <p class="text-sm text-muted">Visa, Mastercard, JCB</p>
-                                </div>
-                            </label>
-
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="promptpay">
+                            <label class="payment-option" data-method="promptpay">
+                                <input type="radio" name="payment" value="promptpay" checked>
                                 <div>
                                     <p class="font-medium">พร้อมเพย์ / QR Code</p>
                                     <p class="text-sm text-muted">สแกนจ่ายผ่านแอปธนาคาร</p>
                                 </div>
                             </label>
 
-                            <label class="payment-option">
+                            <label class="payment-option" data-method="card">
+                                <input type="radio" name="payment" value="card">
+                                <div>
+                                    <p class="font-medium">บัตรเครดิต/เดบิต</p>
+                                    <p class="text-sm text-muted">Visa, Mastercard, JCB</p>
+                                </div>
+                            </label>
+
+                            <label class="payment-option" data-method="bank">
                                 <input type="radio" name="payment" value="bank">
                                 <div>
                                     <p class="font-medium">โอนผ่านธนาคาร</p>
@@ -107,7 +115,7 @@
                                 </div>
                             </label>
 
-                            <label class="payment-option">
+                            <label class="payment-option" data-method="cod">
                                 <input type="radio" name="payment" value="cod">
                                 <div>
                                     <p class="font-medium">เก็บเงินปลายทาง</p>
@@ -116,24 +124,84 @@
                             </label>
                         </div>
 
+                        <!-- QR Code Section (Shown for PromptPay) -->
+                        <div class="payment-methods mt-6" id="qr-section">
+                            <h3 class="text-lg font-bold mb-4">📱 สแกน QR Code เพื่อชำระเงิน</h3>
+
+                            <div class="qr-container">
+                                <!-- QR Code will be generated here -->
+                                <div class="qr-code-box" id="qr-code">
+                                    <svg width="200" height="200" viewBox="0 0 200 200" id="qr-svg">
+                                        <!-- QR Code pattern will be generated -->
+                                    </svg>
+                                </div>
+
+                                <div class="qr-info">
+                                    <p class="text-muted text-sm">หมายเลขพร้อมเพย์</p>
+                                    <p class="font-bold text-lg">XXX-XXX-1234</p>
+                                    <p class="text-muted text-sm mt-2">ชื่อบัญชี</p>
+                                    <p class="font-medium">ShopZone Co., Ltd.</p>
+                                    <p class="text-muted text-sm mt-2">ยอดชำระ</p>
+                                    <p class="font-bold text-2xl text-primary" id="qr-amount">฿0</p>
+                                </div>
+
+                                <div class="qr-timer mt-4">
+                                    <p class="text-sm text-muted">⏱️ กรุณาชำระภายใน</p>
+                                    <p class="timer-display" id="payment-timer">15:00</p>
+                                </div>
+                            </div>
+
+                            <p class="text-center text-sm text-muted mt-4">
+                                หลังจากชำระเงินแล้ว กดปุ่ม "ยืนยันการชำระเงิน" ด้านล่าง
+                            </p>
+                        </div>
+
                         <!-- Card Details (shown for card payment) -->
-                        <div class="payment-methods mt-6" id="card-details">
+                        <div class="payment-methods mt-6" id="card-details" style="display:none">
                             <h3 class="text-lg font-bold mb-4">ข้อมูลบัตร</h3>
 
                             <div class="form-group">
                                 <label class="form-label">หมายเลขบัตร</label>
-                                <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+                                <input type="text" id="card-number" class="form-input"
+                                    placeholder="1234 5678 9012 3456">
                             </div>
 
                             <div class="grid grid-2 gap-4">
                                 <div class="form-group">
                                     <label class="form-label">วันหมดอายุ</label>
-                                    <input type="text" class="form-input" placeholder="MM/YY">
+                                    <input type="text" id="card-expiry" class="form-input" placeholder="MM/YY">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">CVV</label>
-                                    <input type="text" class="form-input" placeholder="123">
+                                    <input type="text" id="card-cvv" class="form-input" placeholder="123">
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Bank Transfer Details -->
+                        <div class="payment-methods mt-6" id="bank-details" style="display:none">
+                            <h3 class="text-lg font-bold mb-4">ข้อมูลสำหรับโอนเงิน</h3>
+
+                            <div class="bank-info">
+                                <div class="bank-item">
+                                    <span class="bank-logo">🏦</span>
+                                    <div>
+                                        <p class="font-medium">ธนาคารกสิกรไทย</p>
+                                        <p class="text-sm">123-4-56789-0</p>
+                                    </div>
+                                </div>
+                                <div class="bank-item">
+                                    <span class="bank-logo">🏦</span>
+                                    <div>
+                                        <p class="font-medium">ธนาคารกรุงเทพ</p>
+                                        <p class="text-sm">987-6-54321-0</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-4">
+                                <label class="form-label">อัปโหลดสลิปโอนเงิน</label>
+                                <input type="file" class="form-input" accept="image/*">
                             </div>
                         </div>
                     </div>
@@ -156,13 +224,21 @@
                             <span id="shipping">ฟรี</span>
                         </div>
 
+                        <div class="summary-row" id="cod-fee-row" style="display:none">
+                            <span class="text-muted">ค่าบริการเก็บเงินปลายทาง</span>
+                            <span>฿30</span>
+                        </div>
+
                         <div class="summary-row total">
                             <span>ยอดชำระทั้งหมด</span>
                             <span class="text-primary" id="total">฿0</span>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-full btn-lg mt-6">
-                            ยืนยันการชำระเงิน
+                        <button type="submit" class="btn btn-primary btn-full btn-lg mt-6" id="pay-btn">
+                            <span id="pay-btn-text">ยืนยันการชำระเงิน</span>
+                            <span id="pay-btn-loading" style="display:none">
+                                <span class="spinner-small"></span> กำลังดำเนินการ...
+                            </span>
                         </button>
 
                         <p class="text-center text-sm text-muted mt-4">
@@ -182,47 +258,391 @@
         </div>
     </main>
 
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">✓</div>
+            <h2>ชำระเงินสำเร็จ!</h2>
+            <p class="text-muted">ขอบคุณสำหรับการสั่งซื้อ</p>
+            <p class="order-id mt-4">หมายเลขคำสั่งซื้อ: <strong id="order-number">#10001</strong></p>
+            <div class="success-details mt-6">
+                <p>📧 เราจะส่งข้อมูลการจัดส่งทางอีเมล</p>
+                <p>📦 คาดว่าจะจัดส่งภายใน 2-3 วันทำการ</p>
+            </div>
+            <div class="flex gap-4 mt-8">
+                <a href="member.html" class="btn btn-primary flex-1">ดูประวัติคำสั่งซื้อ</a>
+                <a href="index.html" class="btn btn-secondary flex-1">กลับหน้าหลัก</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <!-- JavaScript -->
     <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/components.js"></script>
     <script src="js/main.js"></script>
     <script>
+        let paymentTimer;
+        let timeLeft = 15 * 60; // 15 minutes
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (cart.length === 0) {
+                showToast('ไม่มีสินค้าในตะกร้า', 'error');
+                setTimeout(() => window.location.href = 'index.html', 1500);
+                return;
+            }
+
+            renderPaymentItems();
+            updateTotals();
+            generateQRCode();
+            startPaymentTimer();
+        });
+
+        // Render payment items
+        function renderPaymentItems() {
+            const container = document.getElementById('payment-items');
+
+            container.innerHTML = cart.map(item => `
+                <div class="payment-item">
+                    <img src="${item.image}" alt="${item.name}" class="payment-item-img">
+                    <div class="payment-item-info">
+                        <p class="font-medium">${item.name}</p>
+                        <p class="text-sm text-muted">x${item.quantity}</p>
+                    </div>
+                    <span class="font-medium">${formatPrice(item.price * item.quantity)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Update totals
+        function updateTotals() {
+            const subtotal = getCartTotal();
+            const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+            const shipping = subtotal > 1000 ? 0 : 50;
+            const codFee = selectedPayment === 'cod' ? 30 : 0;
+            const total = subtotal + shipping + codFee;
+
+            document.getElementById('subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('shipping').textContent = shipping === 0 ? 'ฟรี' : formatPrice(shipping);
+            document.getElementById('total').textContent = formatPrice(total);
+            document.getElementById('qr-amount').textContent = formatPrice(total);
+
+            // Show/hide COD fee
+            document.getElementById('cod-fee-row').style.display = codFee > 0 ? 'flex' : 'none';
+        }
+
+        // Generate QR Code (simulated)
+        function generateQRCode() {
+            const svg = document.getElementById('qr-svg');
+            const total = getCartTotal();
+
+            // Generate a simple QR-like pattern (demo)
+            let pattern = '';
+            const size = 200;
+            const cellSize = 10;
+
+            for (let y = 0; y < size; y += cellSize) {
+                for (let x = 0; x < size; x += cellSize) {
+                    // Create a pseudo-random pattern based on position and total
+                    const hash = (x * 31 + y * 17 + total) % 100;
+                    if (hash < 40 || (x < 70 && y < 70) || (x > 130 && y < 70) || (x < 70 && y > 130)) {
+                        pattern += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="${(x < 70 && y < 70) || (x > 130 && y < 70) || (x < 70 && y > 130) ? '#000' : (hash < 40 ? '#000' : '#fff')}"/>`;
+                    }
+                }
+            }
+
+            // Add corner squares (QR code pattern)
+            const cornerSize = 60;
+            const innerSize = 40;
+            const centerSize = 20;
+
+            svg.innerHTML = `
+                <!-- Background -->
+                <rect width="200" height="200" fill="white"/>
+                
+                <!-- Top-left corner -->
+                <rect x="10" y="10" width="${cornerSize}" height="${cornerSize}" fill="black"/>
+                <rect x="20" y="20" width="${innerSize}" height="${innerSize}" fill="white"/>
+                <rect x="30" y="30" width="${centerSize}" height="${centerSize}" fill="black"/>
+                
+                <!-- Top-right corner -->
+                <rect x="130" y="10" width="${cornerSize}" height="${cornerSize}" fill="black"/>
+                <rect x="140" y="20" width="${innerSize}" height="${innerSize}" fill="white"/>
+                <rect x="150" y="30" width="${centerSize}" height="${centerSize}" fill="black"/>
+                
+                <!-- Bottom-left corner -->
+                <rect x="10" y="130" width="${cornerSize}" height="${cornerSize}" fill="black"/>
+                <rect x="20" y="140" width="${innerSize}" height="${innerSize}" fill="white"/>
+                <rect x="30" y="150" width="${centerSize}" height="${centerSize}" fill="black"/>
+                
+                <!-- Data pattern -->
+                ${Array.from({ length: 8 }, (_, i) =>
+                Array.from({ length: 8 }, (_, j) => {
+                    const show = ((i + j + total) % 3 !== 0);
+                    return show ? `<rect x="${85 + j * 8}" y="${85 + i * 8}" width="6" height="6" fill="black"/>` : '';
+                }).join('')
+            ).join('')}
+                
+                <!-- PromptPay logo in center -->
+                <circle cx="100" cy="100" r="15" fill="white"/>
+                <text x="100" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e4db7">PP</text>
+            `;
+        }
+
+        // Payment timer
+        function startPaymentTimer() {
+            paymentTimer = setInterval(() => {
+                timeLeft--;
+
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('payment-timer').textContent =
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(paymentTimer);
+                    showToast('หมดเวลาชำระเงิน กรุณาลองใหม่', 'error');
+                    setTimeout(() => window.location.href = 'order.html', 2000);
+                }
+            }, 1000);
+        }
+
         // Toggle payment option active state
         document.querySelectorAll('.payment-option').forEach(option => {
             option.addEventListener('click', () => {
                 document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
                 option.classList.add('active');
 
-                // Show/hide card details
-                const cardDetails = document.getElementById('card-details');
                 const selectedPayment = option.querySelector('input').value;
-                cardDetails.style.display = selectedPayment === 'card' ? 'block' : 'none';
+
+                // Show/hide payment sections
+                document.getElementById('qr-section').style.display = selectedPayment === 'promptpay' ? 'block' : 'none';
+                document.getElementById('card-details').style.display = selectedPayment === 'card' ? 'block' : 'none';
+                document.getElementById('bank-details').style.display = selectedPayment === 'bank' ? 'block' : 'none';
+
+                updateTotals();
             });
         });
 
-        // Render payment items
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('payment-items');
+        // Set first payment option as active
+        document.querySelector('.payment-option').classList.add('active');
+
+        // Process payment
+        async function processPayment(event) {
+            event.preventDefault();
+
             if (cart.length === 0) {
-                container.innerHTML = '<p class="text-muted text-center py-4">ไม่มีสินค้าในตะกร้า</p>';
-            } else {
-                container.innerHTML = cart.map(item => `
-          <div class="flex gap-3 py-3" style="border-bottom:1px solid var(--color-gray-100)">
-            <div style="width:50px;height:50px;background:var(--color-gray-100);border-radius:var(--radius-md)"></div>
-            <div class="flex-1">
-              <p class="text-sm font-medium">${item.name}</p>
-              <p class="text-sm text-muted">x${item.quantity}</p>
-            </div>
-            <span class="font-medium">${formatPrice(item.price * item.quantity)}</span>
-          </div>
-        `).join('');
+                showToast('ตะกร้าของคุณว่างเปล่า', 'error');
+                return;
             }
-            updateOrderSummary();
-        });
+
+            // Show loading
+            document.getElementById('pay-btn-text').style.display = 'none';
+            document.getElementById('pay-btn-loading').style.display = 'inline';
+            document.getElementById('pay-btn').disabled = true;
+
+            // Gather customer data
+            const customerData = {
+                name: `${document.getElementById('ship-firstname').value} ${document.getElementById('ship-lastname').value}`,
+                phone: document.getElementById('ship-phone').value,
+                address: document.getElementById('ship-address').value,
+                province: document.getElementById('ship-province').value,
+                postcode: document.getElementById('ship-postcode').value
+            };
+
+            // Gather order data
+            const orderData = {
+                id: 10000 + Math.floor(Math.random() * 90000),
+                items: cart,
+                customerName: customerData.name,
+                phone: customerData.phone,
+                address: customerData.address,
+                province: customerData.province,
+                postcode: customerData.postcode,
+                paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+                subtotal: getCartTotal(),
+                shipping: getCartTotal() > 1000 ? 0 : 50,
+                total: getCartTotal() + (getCartTotal() > 1000 ? 0 : 50),
+                status: 'completed',
+                createdAt: new Date().toISOString()
+            };
+
+            // Simulate payment processing
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Save order
+            saveOrder(orderData);
+
+            // Save customer data for Admin view
+            saveCustomerData(customerData);
+
+            // Clear cart
+            clearCart();
+            clearInterval(paymentTimer);
+
+            // Show success modal
+            document.getElementById('order-number').textContent = `#${orderData.id}`;
+            document.getElementById('success-modal').classList.add('show');
+        }
+
+        // Save order to localStorage
+        function saveOrder(order) {
+            let orders = JSON.parse(localStorage.getItem('allOrders')) || [];
+            orders.push(order);
+            localStorage.setItem('allOrders', JSON.stringify(orders));
+        }
     </script>
+
+    <style>
+        /* Payment Page Styles */
+        .qr-container {
+            background: var(--color-gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-6);
+            text-align: center;
+        }
+
+        .qr-code-box {
+            background: white;
+            padding: var(--spacing-4);
+            border-radius: var(--radius-lg);
+            display: inline-block;
+            box-shadow: var(--shadow-md);
+        }
+
+        .qr-timer {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: white;
+            padding: var(--spacing-4);
+            border-radius: var(--radius-lg);
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        .bank-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-4);
+        }
+
+        .bank-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            padding: var(--spacing-4);
+            background: var(--color-gray-50);
+            border-radius: var(--radius-lg);
+        }
+
+        .bank-logo {
+            font-size: 2rem;
+        }
+
+        .payment-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            padding: var(--spacing-3) 0;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+
+        .payment-item-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            background: var(--color-gray-100);
+        }
+
+        .payment-item-info {
+            flex: 1;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 9999;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            padding: var(--spacing-8);
+            border-radius: var(--radius-xl);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 auto var(--spacing-6);
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .success-details {
+            background: var(--color-gray-50);
+            padding: var(--spacing-4);
+            border-radius: var(--radius-lg);
+            text-align: left;
+        }
+
+        .success-details p {
+            margin: var(--spacing-2) 0;
+        }
+    </style>
 </body>
 
 </html>

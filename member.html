@@ -173,8 +173,25 @@
 
     <!-- JavaScript -->
     <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/components.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update member info
+            const user = getUser();
+            if (user) {
+                document.querySelector('.profile-info h1').textContent = user.name || 'ผู้ใช้งาน';
+                document.querySelector('.profile-info .text-muted').textContent = user.email || '';
+            }
+        });
+    </script>
 </body>
 
 </html>
